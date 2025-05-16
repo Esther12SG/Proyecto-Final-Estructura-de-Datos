@@ -1,5 +1,3 @@
-![image](https://github.com/user-attachments/assets/d4209f08-fbe5-4420-a250-d0d27ebebb9f)Proyecto Final - Árbol AVL en Java
-
 Curso:Estructuras de Datos  
 Profesor: Ing. Brandon Chitay  
 Estudiante: Reyna Esther Sierra García.
@@ -26,7 +24,8 @@ Se inicia la ejecución
 Numeros Insertados
 
 
-![image](https://github.com/user-attachments/assets/055272bb-9499-409b-9e32-e87877ddb577)
+![image](https://github.com/user-attachments/assets/fd7efebe-8aec-4aae-8cc4-7a1d3ded6b74)
+
 
 
 
@@ -36,6 +35,7 @@ Dibujo gráfico del árbol, y nos muestra tambien las especificaciones de rotaci
 
 
 
+![image](https://github.com/user-attachments/assets/87889576-dcf1-46e6-ba21-2f9c63ed0ade)
 
 
 
@@ -51,7 +51,14 @@ Si respondemos que no, salimos correctamente del programa.
 * ejermplo:
 
   
-![image](https://github.com/user-attachments/assets/5b9c5a47-f0e7-4434-8140-d56a0d490d45)
+![image](https://github.com/user-attachments/assets/6d1abb49-4b52-487e-9d0e-b1cb03e74b24)
+
+
+
+
+
+![image](https://github.com/user-attachments/assets/7d489014-b89c-48c1-8a39-a18ecabaf12a)
+
 
 
 
