@@ -1,4 +1,4 @@
-// Esta Clase es la que permite representar correctamente un nodo del Árbol AVL
+// Esta Clase es para poder representar un nodo del Árbol AVL
 class Node {
     int valor;
     Node izquierda, derecha;
@@ -10,9 +10,10 @@ class Node {
     }
 }
 
-// Esta Clase nos ayuda a poder representar correctamente el Árbol AVL y sus respectivas operaciones
+// Esta Clase ayuda a que contenga toda la lógica del Árbol AVL
 class AVLTree {
     Node raiz;
+    int contadorRotaciones = 0;
 
     int getAltura(Node nodo) {
         return (nodo == null) ? 0 : nodo.altura;
@@ -27,6 +28,8 @@ class AVLTree {
     }
 
     Node rotarDerecha(Node y) {
+        System.out.println("Se aplico rotación DERECHA (LL) sobre nodo " + y.valor);
+        contadorRotaciones++;
         Node x = y.izquierda;
         Node T2 = x.derecha;
         x.derecha = y;
@@ -37,6 +40,8 @@ class AVLTree {
     }
 
     Node rotarIzquierda(Node x) {
+        System.out.println("Se aplico rotación IZQUIERDA (RR) sobre nodo " + x.valor);
+        contadorRotaciones++;
         Node y = x.derecha;
         Node T2 = y.izquierda;
         y.izquierda = x;
@@ -47,22 +52,46 @@ class AVLTree {
     }
 
     Node insertar(Node nodo, int valor) {
-        if (nodo == null) return new Node(valor);
-        if (valor < nodo.valor) nodo.izquierda = insertar(nodo.izquierda, valor);
-        else if (valor > nodo.valor) nodo.derecha = insertar(nodo.derecha, valor);
-        else return nodo; // No se duplica
+        if (nodo == null) {
+            System.out.println("Insertando nuevo nodo: " + valor);
+            return new Node(valor);
+        }
+
+        if (valor < nodo.valor) {
+            nodo.izquierda = insertar(nodo.izquierda, valor);
+        } else if (valor > nodo.valor) {
+            nodo.derecha = insertar(nodo.derecha, valor);
+        } else {
+            System.out.println("Valor duplicado ignorado: " + valor);
+            return nodo;
+        }
+
         actualizarAltura(nodo);
         int fb = getFactorBalance(nodo);
-        if (fb > 1 && valor < nodo.izquierda.valor) return rotarDerecha(nodo); // LL
-        if (fb < -1 && valor > nodo.derecha.valor) return rotarIzquierda(nodo); // RR
+        System.out.println("Nodo " + nodo.valor + " tiene factor de balance: " + fb);
+
+        if (fb > 1 && valor < nodo.izquierda.valor) {
+            System.out.println("Rotación LL requerida en nodo " + nodo.valor);
+            return rotarDerecha(nodo);
+        }
+
+        if (fb < -1 && valor > nodo.derecha.valor) {
+            System.out.println("Rotación RR requerida en nodo " + nodo.valor);
+            return rotarIzquierda(nodo);
+        }
+
         if (fb > 1 && valor > nodo.izquierda.valor) {
+            System.out.println("Rotación LR requerida en nodo " + nodo.valor);
             nodo.izquierda = rotarIzquierda(nodo.izquierda);
-            return rotarDerecha(nodo); // LR
+            return rotarDerecha(nodo);
         }
+
         if (fb < -1 && valor < nodo.derecha.valor) {
+            System.out.println("Rotación RL requerida en nodo " + nodo.valor);
             nodo.derecha = rotarDerecha(nodo.derecha);
-            return rotarIzquierda(nodo); // RL
+            return rotarIzquierda(nodo);
         }
+
         return nodo;
     }
 
@@ -71,6 +100,7 @@ class AVLTree {
         for (String linea : salida) {
             System.out.println(linea);
         }
+        System.out.println("Total de rotaciones realizadas: " + contadorRotaciones);
     }
 
     String[] generarArbolASCII(Node nodo) {
@@ -122,15 +152,17 @@ class AVLTree {
     }
 }
 
-// Esta es la Clase principal del programa
+// Esta es la Clase principal del código y contiene el método main()
 public class ProyectoFinalAVL {
     public static void main(String[] args) {
         java.util.Scanner scanner = new java.util.Scanner(System.in);
 
         while (true) {
-            AVLTree arbol = new AVLTree();
+            AVLTree arbol = new AVLTree(); // Se crea nuevo árbol
+            arbol.contadorRotaciones = 0;  // Reinicia contador
+
             System.out.println("\n--- Nuevo Árbol AVL ---");
-            System.out.println("Ingrese los números para insertar en el Árbol AVL (escriba -1 o 'exit' para terminar este árbol):");
+            System.out.println("Porfavor Ingrese los números para insertar en el Árbol AVL (escriba -1 o 'exit' para terminar este árbol):");
 
             while (true) {
                 System.out.print("Insertar número: ");
@@ -140,14 +172,14 @@ public class ProyectoFinalAVL {
                 try {
                     int valor = Integer.parseInt(entrada);
                     arbol.raiz = arbol.insertar(arbol.raiz, valor);
-                    System.out.println("Árbol AVL actualizado:");
+                    System.out.println("Árbol AVL correctamente actualizado:");
                     arbol.printTree(arbol.raiz);
                 } catch (NumberFormatException e) {
                     System.out.println("Por favor, ingrese un número entero válido.");
                 }
             }
 
-            System.out.print("¿Desea crear otro árbol AVL? (si/no): ");
+            System.out.print("¿Quisiera crear otro árbol AVL? (si/no): ");
             String opcion = scanner.nextLine().toLowerCase();
             if (!opcion.equals("s") && !opcion.equals("si")) {
                 System.out.println("Programa finalizado correctamente.");
