@@ -63,6 +63,4 @@ Si respondemos que no, salimos correctamente del programa.
 
 
 Link de video de YouTube:
-* https://youtu.be/hSXnpljKz0w
-
-
+* https://youtu.be/hgrbHTHNVPQ
